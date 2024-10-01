@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workflow Management with Arrows</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    /* Main container for workflow */
+    .workflow-container {
+      width: 80%;
+      margin: 50px auto;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* Each node (rectangle) */
+    .node {
+      width: 30%;
+      border: 1px solid #666;
+      padding: 10px;
+      margin: 20px;
+      position: relative;
+      text-align: center;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    /* Container for arranging the flow horizontally */
+    .workflow-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    /* Hidden content inside each node */
+    .node-content {
+      display: none;
+      margin-top: 10px;
+      border-top: 1px solid #ccc;
+      padding-top: 10px;
+      text-align: left;
+    }
+
+    /* Button to expand node */
+    .expand-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 5px;
+      border-radius: 50%;
+    }
+
+    /* Arrow between nodes */
+    .arrow {
+      width: 30px;
+      height: 2px;
+      background-color: #333;
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      margin-left: 10px;
+    }
+
+    /* Arrowhead */
+    .arrow:after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 10px solid #333;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      position: absolute;
+      top: -3px;
+      left: 100%;
+    }
+
+    /* Position arrows between rows */
+    .workflow-row:first-child .node:last-child::after {
+      content: '';
+      width: 2px;
+      height: 50px;
+      background-color: #333;
+      position: absolute;
+      top: 50%;
+      left: 100%;
+      margin-left: 10px;
+      transform: translateX(-60px) translateY(50px);
+    }
+
+    /* Specific styles for the placeholders */
+    .placeholder {
+      background-color: #f9f9f9;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="workflow-container">
+  <!-- First Row -->
+  <div class="workflow-row">
+    <!-- Node 1: ISQM -->
+    <div class="node">
+      <button class="expand-btn">+</button>
+      <h3>ISQM</h3>
+      <div class="node-content">
+        <p>File 1: <a href="#">ISQM_File1.pdf</a></p>
+        <p>File 2: <a href="#">ISQM_File2.docx</a></p>
+      </div>
+    </div>
+
+    <!-- Arrow from ISQM to Internal Processes -->
+    <div class="arrow"></div>
+
+    <!-- Node 2: Internal Processes -->
+    <div class="node">
+      <button class="expand-btn">+</button>
+      <h3>Internal Processes</h3>
+      <div class="node-content">
+        <p>File 1: <a href="#">Process_File1.xlsx</a></p>
+        <p>File 2: <a href="#">Process_File2.pptx</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Second Row (Placeholder nodes) -->
+  <div class="workflow-row">
+    <!-- Arrow from Internal Processes to Placeholder 1 -->
+    <div class="arrow" style="width: 200px; top: 50%;"></div>
+
+    <!-- Node 3: Placeholder 1 -->
+    <div class="node placeholder">
+      <button class="expand-btn">+</button>
+      <h3>Placeholder 1</h3>
+      <div class="node-content">
+        <p>File 1: <a href="#">Placeholder1_File1.pdf</a></p>
+      </div>
+    </div>
+
+    <!-- Node 4: Placeholder 2 -->
+    <div class="node placeholder">
+      <button class="expand-btn">+</button>
+      <h3>Placeholder 2</h3>
+      <div class="node-content">
+        <p>File 1: <a href="#">Placeholder2_File1.docx</a></p>
+      </div>
+    </div>
+
+    <!-- Node 5: Placeholder 3 -->
+    <div class="node placeholder">
+      <button class="expand-btn">+</button>
+      <h3>Placeholder 3</h3>
+      <div class="node-content">
+        <p>File 1: <a href="#">Placeholder3_File1.pptx</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Add click event listeners to all expand buttons
+  document.querySelectorAll('.expand-btn').forEach(button => {
+    button.addEventListener('click', function() {
+      const content = this.nextElementSibling.nextElementSibling;
+      const isVisible = content.style.display === 'block';
+      
+      // Toggle content visibility
+      content.style.display = isVisible ? 'none' : 'block';
+      
+      // Update button text
+      this.textContent = isVisible ? '+' : '-';
+    });
+  });
+</script>
+
+</body>
+</html>
